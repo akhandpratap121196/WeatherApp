@@ -42,15 +42,20 @@
 
       </div>
     <script>
-    function Validate() {
+    async function Validate() {
+    try{
         var city = document.getElementById("city").value;
-         fetch(
+      await fetch(
          ` http://api.weatherstack.com/current?access_key=8a445f11d9cf22f4e894e4e33cedc418&query=${city}`
-         //`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e9511c69f188a5c05c368b4457be3e8c`
-            ).then((response)=>{
-                return response.json();
-            }).then((data)=>display(data));
-      
+         
+            ).then(res=>{return res.json()}).then(data=>display(data));
+            
+    }catch{
+      alert("please enter valid name...")
+      console.log("error");
+    }     
+            
+  
       function  display(data){
          const collection = document.getElementById("condition");
          collection.innerHTML =data.current.weather_descriptions[0] ;
@@ -70,7 +75,7 @@
              
               console.log(data);
 
-      }
+     }
      
     }
        </script>
